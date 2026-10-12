@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#100d19" />
+    <meta
+      name="description"
+      content="The Midnight Door — an interactive story where every choice changes your fate."
+    />
+    <title>The Midnight Door | An Interactive Adventure</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="star-field" id="starField" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a
+        class="brand"
+        href="#"
+        id="brandHome"
+        aria-label="The Midnight Door home"
+      >
+        <span class="brand-symbol">M</span>
+        <span class="brand-name">THE MIDNIGHT DOOR</span>
+      </a>
+
+      <div class="topbar-right">
+        <span class="chapter-indicator" id="chapterIndicator">PROLOGUE</span>
+        <button
+          class="icon-button"
+          id="journalToggle"
+          type="button"
+          aria-label="Open your journal"
+          title="Your journal"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 3.5h11.5A2.5 2.5 0 0 1 19 6v14H7a2 2 0 0 1-2-2V3.5Z" />
+            <path d="M5 17.5A2 2 0 0 1 7 15h12M9 7h6M9 10.5h6" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="intro-screen" id="introScreen">
+        <div class="intro-ornament" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="ornament-star">✦</span>
+          <span class="ornament-line"></span>
+        </div>
+
+        <p class="eyebrow">A STORY ABOUT THE THINGS WE FEAR</p>
+
+        <h1 class="main-title">
+          The Midnight
+          <span>Door</span>
+        </h1>
+
+        <p class="intro-copy">
+          At 12:07 AM, a letter arrives with no name on it. Inside is a key, a
+          map, and a sentence written in handwriting you recognize.
+        </p>
+
+        <blockquote class="intro-quote">
+          "If you want the truth, come home."
+        </blockquote>
+
+        <div class="intro-details">
+          <span><span class="detail-dot"></span> AN INTERACTIVE STORY</span>
+          <span>YOUR CHOICES MATTER</span>
+        </div>
+
+        <button class="primary-button" id="beginButton" type="button">
+          <span>Enter the story</span>
+          <span class="button-arrow" aria-hidden="true">→</span>
+        </button>
+
+        <p class="intro-footnote">BEST EXPERIENCED AFTER DARK</p>
+      </section>
+
+      <section class="story-screen hidden" id="storyScreen" aria-live="polite">
+        <div class="story-layout">
+          <aside class="story-sidebar">
+            <div class="sidebar-heading">YOUR JOURNEY</div>
+
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="progress-label">
+              <span id="progressText">0% explored</span>
+              <span id="stepText">01</span>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-heading">DISCOVERED</div>
+            <div class="discovery-list" id="discoveryList">
+              <p class="empty-discoveries">
+                Your discoveries will appear here.
+              </p>
+            </div>
+
+            <div class="sidebar-bottom">
+              <span class="sidebar-moon" aria-hidden="true">☾</span>
+              <p>Some doors open only once.</p>
+            </div>
+          </aside>
+
+          <div class="story-main">
+            <div class="scene-header">
+              <span class="scene-label" id="sceneLabel">CHAPTER I</span>
+              <span class="scene-location" id="sceneLocation"
+                >THE BEGINNING</span
+              >
+            </div>
+
+            <div class="scene-art" id="sceneArt" aria-hidden="true">
+              <div class="art-moon"></div>
+              <div class="art-horizon"></div>
+              <div class="art-house">
+                <div class="house-roof"></div>
+                <div class="house-body">
+                  <span class="house-window window-left"></span>
+                  <span class="house-window window-right"></span>
+                  <span class="house-door"></span>
+                </div>
+              </div>
+              <div class="art-ground"></div>
+            </div>
+
+            <div class="scene-content">
+              <h2 class="scene-title" id="sceneTitle">The Letter</h2>
+              <div class="scene-description" id="sceneDescription"></div>
+              <div class="memory-note hidden" id="memoryNote"></div>
+
+              <div class="choice-heading">
+                <span>WHAT WILL YOU DO?</span>
+                <span class="choice-hint">CHOOSE WISELY</span>
+              </div>
+
+              <div class="choices" id="choices"></div>
+
+              <div class="story-footer">
+                <span id="consequenceHint">Every choice leaves a trace.</span>
+                <button class="text-button" id="backButton" type="button">
+                  ← Previous scene
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="ending-screen hidden"
+        id="endingScreen"
+        aria-live="polite"
+      >
+        <div class="ending-symbol" id="endingSymbol" aria-hidden="true">✦</div>
+        <p class="eyebrow" id="endingEyebrow">THE END</p>
+        <h2 class="ending-title" id="endingTitle">The story ends here.</h2>
+        <div class="ending-description" id="endingDescription"></div>
+
+        <div class="ending-stats">
+          <div class="stat">
+            <span class="stat-value" id="statChoices">0</span>
+            <span class="stat-label">CHOICES MADE</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="statDiscoveries">0</span>
+            <span class="stat-label">DISCOVERIES</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="statEnding">01</span>
+            <span class="stat-label">ENDING REACHED</span>
+          </div>
+        </div>
+
+        <div class="ending-actions">
+          <button class="primary-button" id="restartButton" type="button">
+            <span>Begin again</span>
+            <span class="button-arrow" aria-hidden="true">↻</span>
+          </button>
+          <button
+            class="secondary-button"
+            id="endingJournalButton"
+            type="button"
+          >
+            Read your journal
+          </button>
+        </div>
+
+        <p class="ending-footnote">
+          A DIFFERENT CHOICE MAY TELL A DIFFERENT STORY.
+        </p>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <span>THE MIDNIGHT DOOR</span>
+      <span class="footer-separator">✦</span>
+      <span>EVERY ENDING IS A BEGINNING</span>
+    </footer>
+
+    <div class="journal-overlay hidden" id="journalOverlay">
+      <section
+        class="journal-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="journalTitle"
+      >
+        <div class="journal-header">
+          <div>
+            <p class="eyebrow">YOUR PERSONAL RECORD</p>
+            <h2 id="journalTitle">Field Notes</h2>
+          </div>
+          <button
+            class="icon-button"
+            id="journalClose"
+            type="button"
+            aria-label="Close journal"
+          >
+            ×
+          </button>
+        </div>
+
+        <p class="journal-intro">
+          Every decision brought you here. This is what you remember.
+        </p>
+
+        <div class="journal-entries" id="journalEntries">
+          <p class="journal-empty">Your story hasn't begun yet.</p>
+        </div>
+
+        <div class="journal-actions">
+          <button class="secondary-button" id="downloadJournal" type="button">
+            Export journal
+          </button>
+          <button class="text-button" id="journalCloseBottom" type="button">
+            Close
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
